@@ -1,0 +1,104 @@
+@charset "UTF-8";
+
+body {
+    background-color: #faf0e6;
+    display: flex;
+    justify-content: center;  /* 横中央 */
+    align-items: flex-start;  /* 上基準 */
+    padding-top: 20px;
+    font-family: "メイリオ", sans-serif;
+}
+
+/* スマホ枠 */
+.phone-frame {
+    width: 390px;        /* iPhoneサイズ近い */
+    height: 780px;
+    background: white;
+    border-radius: 30px;  /* 丸み */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    padding: 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* タイトル中央 */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ff8c00;
+    font-family: fantasy, sans-serif; 
+    font-size: 50px;
+}
+
+/* 入力エリア */
+.input-area {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    /*margin-bottom: 15px;*/
+}
+
+/* 入力フォームを小さめ＆丸く */
+.input-area input {
+    flex: 1;
+    min-width: 0;
+    padding: 8px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    /*font-size: 14px;*/
+}
+
+/* 追加ボタン */
+.input-area button {
+    flex-shrink: 0;
+    padding: 8px 12px;
+    border-radius: 15px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* スクロール部分 */
+.list-area {
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* すべての要素の幅計算を正常化 */
+* {
+    box-sizing: border-box;
+}
+
+/* 各アイテム行を横並びにする */
+#itemList li {
+    display: flex;
+    justify-content: space-between; /* 左右に分ける */
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+/* 左側（チェック＋名前＋数量） */
+.item-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 削除フォームは縮まない */
+.delete-form {
+    flex-shrink: 0;
+}
+
+/* 削除ボタンを少しアプリ風に */
+.delete-btn {
+    padding: 6px 10px;
+    border-radius: 12px;
+    border: none;
+    background-color: #ff6b6b;
+    color: white;
+    cursor: pointer;
+}

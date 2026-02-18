@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>買い物リスト</title>
+<link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<div class="phone-frame">
+
+    <!-- ヘッダー固定 -->
+    <div class="header">
+        <h1>SHOPPING LIST</h1>
+
+        <!-- 追加フォーム -->
+        <form action="/add" method="post" class="input-area">
+            <input type="text" name="name" placeholder="アイテム名" required>
+            <input type="number" name="quantity" value="1" min="1" required>
+            <button type="submit">追加</button>
+        </form>
+    </div>
+
+    <!-- スクロール部分 -->
+    <div class="list-area">
+        <ul id="itemList">
+
+            <li th:each="item : ${items}"
+                th:data-id="${item.id}"
+                draggable="true">
+
+                <!-- 左側まとめ -->
+                <div class="item-left">
+
+                    <!-- チェックボックス -->
+                    <form th:action="@{/toggle/{id}(id=${item.id})}"
+                          method="post"
+                          style="display:inline;">
+                        <input type="checkbox"
+                               th:checked="${item.purchased}"
+                               onchange="this.form.submit()">
+                    </form>
+
+                    <!-- 商品名 -->
+                    <span th:text="${item.name}"
+                          th:style="${item.purchased} ? 'text-decoration: line-through;' : ''">
+                    </span>
+
+                    <!-- 数量 -->
+                    <span>(数量: <span th:text="${item.quantity}"></span>)</span>
+
+                </div>
+
+                <!-- 削除ボタン（右側固定） -->
+                <form th:action="@{/delete/{id}(id=${item.id})}"
+                      method="post"
+                      class="delete-form">
+                    <button type="submit" class="delete-btn">削除</button>
+                </form>
+
+            </li>
+
+        </ul>
+    </div>
+
+</div>
+
+<!-- 並び替えスクリプト（1回だけ） -->
+<script>
+const list = document.getElementById("itemList");
+
+let dragged;
+
+list.addEventListener("dragstart", e => {
+    dragged = e.target;
+});
+
+list.addEventListener("dragover", e => {
+    e.preventDefault();
+});
+
+list.addEventListener("drop", e => {
+    e.preventDefault();
+    if (e.target.tagName === "LI") {
+        list.insertBefore(dragged, e.target);
+        saveOrder();
+    }
+});
+
+function saveOrder() {
+    const ids = [...list.children]
+        .map(li => li.dataset.id);
+
+    fetch("/reorder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(ids)
+    });
+}
+</script>
+
+</body>
+</html>
+
+<!-- http://localhost:8080/ -->
+<!-- http://localhost:8080/h2-console -->
