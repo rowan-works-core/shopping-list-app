@@ -11,10 +11,12 @@ body {
 
 /* スマホ枠 */
 .phone-frame {
-    width: 390px;        /* iPhoneサイズ近い */
+    width: 100%;           /* ブラウザ幅に合わせる */
+    max-width: 390px;      /* iPhoneサイズ上限 */
     height: 780px;
+    margin: 0 auto;        /* 中央寄せ */
     background: white;
-    border-radius: 30px;  /* 丸み */
+    border-radius: 30px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.2);
     padding: 15px;
     box-sizing: border-box;
